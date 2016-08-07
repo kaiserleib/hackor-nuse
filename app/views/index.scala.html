@@ -1,20 +1,18 @@
-@*
- * This template takes a single argument, a String containing a
- * message to display.
- *@
-@(message: String)
+@import helper.form
+@import helper.inputText
+@import helper.textarea
+@import models.Topic
 
-@*
- * Call the `main` template with two arguments. The first
- * argument is a `String` with the title of the page, the second
- * argument is an `Html` object containing the body of the page.
- *@
-@main("Welcome to Play") {
-
-    @*
-     * Get an `Html` object by calling the built-in Play welcome
-     * template and passing a `String` message.
-     *@
-    @play20.welcome(message, style = "Java")
-
-}
+@(title: String, topics: List[Topic], topicForm: Form[Topic])<h1>HACKOR NUSE BY KIZR</h1>
+Here is some news. It is for hackers like you.
+<br/>
+<ul>
+@for(topic <- topics) {
+	<li><a href="@routes.Application.viewTopic(topic.getId)">@topic.getTitle</a></li>
+	}
+	</ul>
+@form(action=routes.Application.addTopic) {
+	@inputText(topicForm("title"))<br/>
+	@textarea(field = topicForm("contents"), args = 'rows -> 3, 'cols -> 50)
+	<button type="submit">ADD UR NUSE</button>
+} 
