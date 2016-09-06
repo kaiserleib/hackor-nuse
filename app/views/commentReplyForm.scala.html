@@ -1,14 +1,17 @@
-@import models.Topic
 @import models.Comment
 @import forms.CommentForm
 @import helper.form
-@import helper.input
 @import helper.inputText
+@import helper.input
 
-@(topic: Topic, commentForm: Form[CommentForm]) 
-	<h1>@topic.getTitle</h1>
-	@topic.getContents
-	<hr>
+@(parent: Comment, commentForm: Form[CommentForm]) 
+    @if(parent != null) {
+        @parent.getText
+        @for(child <- parent.getChildren) {
+	    	@commentView(child)
+	    }
+    }
+    
     @form(action=routes.Application.postReply) {
         @input(commentForm("parentId")) { (id, name, value, args) =>
             <input type="hidden" name="@name" id="@id" value="@value" @toHtmlArgs(args)/>
@@ -19,9 +22,3 @@
 		@inputText(commentForm("text"))
 		<button type="submit">ADD UR COMMENT</button>
     }
-	<ul>
-	@for(c <- topic.getComments) {
-	    @commentView(c)
-	}
-	</ul>
-

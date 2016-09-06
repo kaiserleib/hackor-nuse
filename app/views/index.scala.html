@@ -3,16 +3,17 @@
 @import helper.textarea
 @import models.Topic
 
-@(title: String, topics: List[Topic], topicForm: Form[Topic])<h1>HACKOR NUSE BY KIZR</h1>
-Here is some news. It is for hackers like you.
-<br/>
-<ul>
-@for(topic <- topics) {
-	<li><a href="@routes.Application.viewTopic(topic.getId)">@topic.getTitle</a></li>
+@(title: String, topics: List[Topic], topicForm: Form[Topic]) 
+	<h1>HACKOR NUSE BY KIZR</h1>
+	Here is some news. It is for hackers like you.
+	<br/>
+	<ul>
+    @for(topic <- topics) {
+	    <li><a href="@routes.Application.viewTopic(topic.getId)">@topic.getTitle</a></li>
 	}
 	</ul>
-@form(action=routes.Application.addTopic) {
-	@inputText(topicForm("title"))<br/>
-	@textarea(field = topicForm("contents"), args = 'rows -> 3, 'cols -> 50)
-	<button type="submit">ADD UR NUSE</button>
-} 
+    @form(action=routes.Application.addTopic) {
+		@inputText(topicForm("title"))<br/>
+		@textarea(field = topicForm("contents"), args = 'rows -> 3, 'cols -> 50)
+		<button type="submit">ADD UR NUSE</button>
+    } 

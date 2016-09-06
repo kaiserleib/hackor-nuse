@@ -1,0 +1,12 @@
+@import models.Comment
+@(comment: Comment) 
+<li>
+    @comment.getText
+    <a href="@routes.Application.replyToComment(comment.getId)">add reply</a>
+    <br/>
+    <ul>
+    @for(child <- comment.getChildren) {
+	    @views.html.commentView(child)
+	}
+	</ul>
+</li>
