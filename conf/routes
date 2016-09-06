@@ -12,3 +12,6 @@ GET    /reply/:parentId    controllers.Application.replyToComment(parentId: Long
 
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file        controllers.Assets.versioned(path="/public", file: Asset)
+
+# Heroku dies if we don't have a favicon
+GET  /favicon.ico   controllers.Assets.at(path="/public", file="favicon.ico")
